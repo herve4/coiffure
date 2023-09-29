@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% for commandelist in t%}
+        <title>Coiffure | {{commandelist.nom_coi|truncatewords:5}} </title>
+        {% endfor %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.banner{
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{{data.img_coi.url}}") center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding-bottom: 20px;
+}
+
+.card-container{
+    display: grid;
+    grid-template-columns: 420px 420px;
+}
+
+.card-img{
+    background: url("{{data.img_coi.url}}") center/cover no-repeat;
+}
+
+.banner h2{
+    padding-bottom: 40px;
+    margin-bottom: 20px;
+}
+.card-content{
+    background: #fff;
+    height: 330px;
+}
+.card-content h3{
+    text-align: center;
+    color: #000;
+    padding: 25px 0 10px 0;
+    font-size: 26px;
+    font-weight: 500;
+}
+.form-row{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+p{
+    color: #000;
+}
+form button, form input{
+    display: block;
+    width: 100%;
+    margin: 15px 12px;
+    padding: 5px;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-weight: 300;
+}
+form input[type = text], form input[type = number], form input::placeholder, select{
+    color: #9a9a9a;
+}
+form button[type = submit]{
+    color: #fff;
+    background: #C19B04;
+    padding: 12px 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+form button[type = button]{
+    color: #fff;
+    background: #022D35;
+    padding: 12px 0;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 18px;
+}
+form button[type = button]:hover{
+    opacity: 0.9;
+}
+form button[type = submit]:hover{
+    background-color: transparent;
+    border: 1px #000 solid;
+    color: #000;
+}
+@media(max-width: 992px){
+    .card-container{
+        grid-template-columns: 100%;
+        width: 100vw;
+    }
+    .card-img{
+        height: 330px;
+    }
+}
+
+
+{% comment %} Barre de navigation {% endcomment %}
+.wrapper .outer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 55px;
+  }
+  .wrapper .card{
+    background: #fff;
+    width: 430px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    justify-content: space-between;
+    border-radius: 100px 20px 20px 100px;
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+    animation: animate 15s linear infinite;
+    animation-delay: calc(3s * var(--delay));
+  }
+  .outer:hover .card{
+    animation-play-state: paused;
+  }
+  .wrapper .card:last-child{
+    animation-delay: calc(-3s * var(--delay));
+  }
+  @keyframes animate {
+    0%{
+      opacity: 0;
+      transform: translateX(100%) scale(0.5);
+    }
+    5%, 20%{
+      opacity: 0.4;
+      transform: translateX(100%) scale(0.7);
+    }
+    25%, 40%{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0%) scale(1);
+    }
+    45%, 60%{
+      opacity: 0.4;
+      transform: translateX(-100%) scale(0.7);
+    }
+    65%, 100%{
+      opacity: 0;
+      transform: translateX(-100%) scale(0.5);
+    }
+  }
+  .card .content{
+    display: flex;
+    align-items: center;
+  }
+  .wrapper .card .img{
+    height: 90px;
+    width: 90px;
+    position: absolute;
+    left: -5px;
+    background: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+  }
+  .card .img img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .card .details{
+    margin-left: 80px;
+  }
+  .details span{
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .card a{
+    text-decoration: none;
+    padding: 7px 18px;
+    border-radius: 25px;
+    color: #fff;
+    background: linear-gradient(to bottom, #C19B04 15%, #C19B04 100%);
+    transition: all 0.3s ease;
+  }
+  .card a:hover{
+    transform: scale(0.94);
+  }
+   .card .name{
+    color: #000;
+  }
+  {% comment %} POPUP {% endcomment %}
+
+
+   </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+        
+        
+    </head>
+    <body>
+      
+        <section class = "banner">
+            <h2>Réservation de coiffeur</h2>
+            <span class="name"><a href="{%url 'coiffuresapp'%}" style="color: #fff;" ><< Accueil</a></span>
+            <div class = "card-container">
+                
+                <div class = "card-img">
+                    
+                </div>
+                  
+                <div class = "card-content">
+                    
+                    <h3>{{data.nom_coi|truncatewords:4}}</h3>
+                    <form method="get" action="{%url 'commande' data.slugs %}">
+                      
+                        <div class = "form-row">
+                            <p>{{data.desc_coi|truncatewords:20}}</p>
+                        </div>
+
+                        <div class = "form-row">
+                            <button type="button">{{data.prix_coi}}</button>
+                        </div>
+
+                        <div class = "form-row">
+                            {% comment %} <input type = "submit"  value = "Réserver un(e) coiffeur(se)"> {% endcomment %}
+                            <button type="submit">Réserver un(e) coiffeur(se)</button>
+                            
+                        </div>
+                        
+                    </form>
+                </div>
+            </div><br><br><br>
+           
+            
+          
+            {% comment %} Barre de navigation {% endcomment %}
+
+      <div class="wrapper">
+        <div class="outer">
+            {% for commandelist in page %}
+          <div class="card" style="--delay:-1;">
+            <div class="content">
+              <div class="img"><img src="{{commandelist.img_coi.url}}" alt=""></div>
+              <div class="details">
+                <span class="name">{{commandelist.nom_coi|truncatewords:3}}</span>
+                <p>{{commandelist.desc_coi|truncatewords:3}}</p>
+              </div>
+            </div>
+            <a href="{%url 'show'   commandelist.slugs %}">Voir</a>
+          </div>
+          
+          <div class="card" style="--delay:0;">
+            <div class="content">
+              <div class="img"><img src="{{commandelist.img_coi.url}}" alt=""></div>
+              <div class="details">
+                <span class="name">{{commandelist.nom_coi|truncatewords:2}}</span>
+                <p>{{commandelist.desc_coi|truncatewords:3}}</p>
+              </div>
+            </div>
+            <a href="{%url 'show'  commandelist.slugs %}">Voir</a>
+          </div>
+          
+           <div class="card" style="--delay:1;">
+            <div class="content">
+              <div class="img"><img src="{{commandelist.img_coi.url}}" alt=""></div>
+              <div class="details">
+                <span class="name">{{commandelist.nom_coi|truncatewords:2}}</span>
+                <p>{{commandelist.desc_coi|truncatewords:3}}</p>
+              </div>
+            </div>
+            <a href="{%url 'show'  commandelist.slugs %}">Voir</a>
+          </div> 
+         
+          <div class="card" style="--delay:2;">
+           <div class="content">
+             <div class="img"><img src="{{commandelist.img_coi.url}}" alt=""></div>
+             <div class="details">
+               <span class="name">{{commandelist.nom_coi|truncatewords:2}}</span>
+               <p>{{commandelist.desc_coi|truncatewords:3}}</p>
+             </div>
+           </div>
+           <a href="{%url 'show'  commandelist.slugs %}">Voir</a>
+         </div> 
+         {% endfor %}
+       
+          </div>
+          
+      </div>
+    </section>
+    
+    </body>
+</html>

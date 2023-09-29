@@ -1,0 +1,588 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" type="text/css" href="{%static 'slider/css/bootstrap.min.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/css/style.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/css/mdb.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/coiffeurapp/css/style.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/coiffeurapp/css/mur.css'%}">
+<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
+<title>Catégories</title>
+<style>
+
+</style>
+</head>
+<body >
+
+      <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <!-- Container wrapper -->
+    <div class="container">
+      <!-- Navbar brand -->
+      {% if  hommes %}
+      <a class="navbar-brand me-2" href="{%url 'coiffuresapp'%}">
+        
+        <img
+          src="{% static 'img/ALLO-COIFFEUR.png'%}"
+          width="100px"
+          height="auto"
+          alt="ALLO-COIFFEUR"
+          loading="lazy"
+          style="margin-top: -1px;"
+        />
+      </a>
+      {% else %}
+      <a class="navbar-brand me-2" href="{%url 'coiffuresapp'%}">
+        
+        <img
+          src="{% static 'img/ALLO-MAKE-UP.png'%}"
+          width="100px"
+          height="auto"
+          alt="ALLO-MAKE-UP"
+          loading="lazy"
+          style="margin-top: -1px;"
+        />
+      </a>
+      {% endif %}
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarButtonsExample"
+        aria-controls="navbarButtonsExample"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Collapsible wrapper -->
+      
+      <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <!-- Left links -->
+        {% if  hommes %}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'coiffures'%}">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'actualites'  %}">Actualités</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'contact'%}">Contacts</a>
+          </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'coiffure'%}">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'actualites' %}">Actualités</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'contacts'%}">Contacts</a>
+          </li>
+        </ul>
+        {% endif %}
+        <!-- Left links -->
+  
+        <div class="d-flex align-items-center">
+            <form action="{%url 'search' %}" method="get"  class="d-flex input-group w-auto" >
+              {% csrf_token %}
+                <input
+                  type="search"
+                  class="form-control rounded"
+                  placeholder="Rechercher"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+                  name="search"
+                  
+                />
+                <span class="input-group-text border-0" id="search-addon">
+                  <button type="submit" class="input-group-text border-0" ><i class="fas fa-search "></i></button>
+                  
+                </span>
+              </form>
+              {% if  hommes %}
+                {% if user.is_authenticated %}
+                <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-default px-3 me-2">
+                  Déconnexion
+                </button>
+              </a>
+                {% else %}
+                <a href="{%url 'login' %}">
+                <button type="button" class="btn btn-default px-3 me-2">
+                  Connexion
+                </button>
+              </a>
+              <a href="{%url 'inscription' %}">
+                <button type="button" class="btn btn-default px-3 me-2">
+                  S'inscrire
+                </button>
+              </a>
+                {% endif %}
+              {% else %}
+              {% if user.is_authenticated %}
+              <a href="{%url 'logout'%}">
+              <button type="button" class="btn btn-default px-3 me-2">
+                Déconnexion
+              </button>
+            </a>
+              {% else %}
+              <a href="{%url 'login' %}">
+              <button type="button" class="btn btn-default px-3 me-2">
+                Connexion
+              </button>
+            </a>
+            <a href="{%url 'inscription' %}">
+              <button type="button" class="btn btn-default px-3 me-2">
+                S'inscrire
+              </button>
+            </a>
+              {% endif %}
+              {% endif %}
+              
+              {% if user.is_authenticated %}
+          <a
+            class="btn btn-success px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fas fa-cart-shopping"></i>
+          </a>
+          {% endif %}
+          <a
+            class="btn btn-danger px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fab fa-instagram-square"></i>
+          </a>
+          <a
+            class="btn btn-dark px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fab fa-tiktok"></i>
+          </a>
+          <a
+            class="btn btn-primary px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fab fa-facebook"></i>
+          </a>
+        </div>
+      </div>
+      <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+    
+  </nav>
+  <!-- Navbar -->
+
+
+
+{% block content %}
+<style>
+
+  .loading{
+    height: 25px;
+    width: 25px;
+    position: relative;
+    animation: rotate 5s  infinite;
+  }
+  .ball{
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  .upper{
+    left: 0;
+    top: -22px;
+    background: #2da2ff;
+    animation: upper 1s linear infinite;
+  }
+  @keyframes upper {
+    50%{
+      top: 22px;
+    }
+    100%{
+      top: 22px;
+    }
+  }
+  .right{
+    right: -22px;
+    top: 0;
+    background: #ff337a;
+    animation: right 1s linear infinite;
+  }
+  @keyframes right {
+    50%{
+      right: 22px;
+    }
+    100%{
+      right: 22px;
+    }
+  }
+  .lower{
+    bottom: -22px;
+    left: 0;
+    background: #ffff00;
+    animation: lower 1s linear infinite;
+  }
+  @keyframes lower {
+    50%{
+      bottom: 22px;
+    }
+    100%{
+      bottom: 22px;
+    }
+  }
+  .left{
+    left: -22px;
+    top: 0;
+    background: #00ff00;
+    animation: left 1s linear infinite;
+  }
+  @keyframes left {
+    50%{
+      left: 22px;
+    }
+    100%{
+      left: 22px;
+    }
+  }
+  .sk{
+    display:grid;
+    grid-template-columns: 5fr 1fr;
+  }
+  .sl{
+    border-left: 1px solid #C1BFBF;
+  }
+</style>
+
+<div class="container">
+  <div class="sk">
+    <div class="sm ">
+      <div class="row">
+        
+        <div class="text-danger"><h2>{{categories.nom_cat}}</h2></div>
+        {% comment %} <div class="loading"> {% endcomment %}
+            {% comment %} <strong>Chargement de la galérie...</strong> {% endcomment %}
+            {% comment %} </div> {% endcomment %}
+            <section>
+              <div class="loading">
+                <div class="upper ball"></div>
+                <div class="right ball"></div>
+                <div class="lower ball"></div>
+                <div class="left ball"></div>
+              </div>
+            </section>
+        <div class="grid mb-4 text-center">
+          {% if hommes %}
+            {% for d in pages.object_list  %}
+            <div class="item">
+                    <div class="item-content">            
+                        <a href="{%url 'show' d.slugs %}">
+                            <img src="{{d.img_coi.url}}" width="300px" height="auto" /><br> 
+                        </a>               
+                </div> 
+            </div>
+            {% endfor %}
+            {% else %}
+            {% for d in pages.object_list  %}
+            <div class="item">
+                    <div class="item-content">            
+                        <a href="{%url 'show' d.slugs %}">
+                            <img src="{{d.img_coi.url}}" width="300px" height="auto" /><br> 
+                        </a>               
+                </div> 
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    {% if hommes %}
+    <p>Page: {{pages.number}}/{{pages.paginator.num_pages}} </p>
+    <nav aria-label="Page navigation example offset-md-4">
+        <ul class="pagination">
+          {% if pages.has_previous %}
+          <li class="page-item"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?pages={{pages.previous_page_number}}">Retour</a></li>
+          {% endif %}
+          {% for num_page in pages.paginator.page_range  %}
+            {% if pages.number == num_page %}
+            <li class="page-item active" aria-current="page"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?pages={{num_page}}">{{num_page}} </a></li>
+            {% else %}
+            <li class="page-item" aria-current="page"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?pages={{num_page}}">{{num_page}} </a></li>
+            {% endif %}
+            
+          {% endfor %}
+        
+          {% if pages.has_next %}
+          <li class="page-item"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?page={{pages.next_page_number}}">Suivant</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% else %}
+      <p>Page: {{pages.number}}/{{pages.paginator.num_pages}} </p>
+      <nav aria-label="Page navigation example offset-md-4">
+          <ul class="pagination">
+            {% if pages.has_previous %}
+            <li class="page-item"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?pages={{pages.previous_page_number}}">Retour</a></li>
+            {% endif %}
+            {% for num_page in pages.paginator.page_range  %}
+              {% if pages.number == num_page %}
+              <li class="page-item active" aria-current="page"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?pages={{num_page}}">{{num_page}} </a></li>
+              {% else %}
+              <li class="page-item" aria-current="page"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?pages={{num_page}}">{{num_page}} </a></li>
+              {% endif %}
+              
+            {% endfor %}
+          
+            {% if pages.has_next %}
+            <li class="page-item"><a class="page-link" href="{%url 'galeries' categories.nom_cat %}?page={{pages.next_page_number}}">Suivant</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      {% endif %}
+    </div>
+    
+    <div class="sl ml-2">
+      <h5 class=" ml-1">Feuilleter ici...</h5><hr>
+      <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+          {{categories.nom_cat}}
+        </button>
+        {% if hommes %}
+        {% for homme in data2 %}
+        <button type="button" hx-get="/hommes" hx-trigger="every 2s" class="list-group-item list-group-item-action">{{homme.nom_cat}}</button>
+        {% endfor %}
+        {% else %}
+        {% for femme in data3 %}
+        <button type="button" hx-get="/hommes" hx-trigger="every 2s" class="list-group-item list-group-item-action">{{femme.nom_cat}}</button>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+
+
+<script>
+    var grid = new Muuri('.grid', {
+        dragEnabled: true,
+        layout: {
+          fillGaps: true
+        }
+      });
+      
+      // When all items have loaded refresh their
+      // dimensions and layout the grid.
+      window.addEventListener('load', function () {
+        grid.refreshItems().layout();
+        // For a little finishing touch, let's fade in
+        // the images after all them have loaded and
+        // they are corrertly positioned.
+        document.body.classList.add('images-loaded');
+      });
+</script>
+
+
+<style>
+  {% if  hommes %}
+  .bg-footer{
+    
+    background-color:#eee;
+    
+  }
+  {% else %}
+  .bg-footer{
+    background-color:#C60944;
+    color: #fff;
+  }
+  {% endif %}
+</style>
+
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center bg-footer justify-content-lg-between p-4 border-bottom">
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Suivez-nous sur les réseaux sociaux :</span>
+      </div>
+      <!-- Left -->
+  
+      <!-- Right -->
+      <div>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="" class="me-4 text-reset">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+  
+    <!-- Section: Links  -->
+    <section class="bg-footer">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mt-5">
+            <!-- Content -->
+            {% if  hommes %}
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i> A propos de nous
+            </h6>
+            <p>
+              Allô coiffeur est une plateforme de make up en ligne qui propose ses services de coiffures à domicile à des prix qui défient toute concurrence, le tout dans un cadre convivial et branché.
+            </p>
+            {% else %}
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i> A propos de nous
+            </h6>
+            <p>
+              Allô Make up est une plateforme de make up en ligne qui propose ses services de maquillages à domicile à des prix qui défient toute concurrence, le tout dans un cadre convivial et branché.
+            </p>
+            {% endif %}
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-2 mx-auto mt-3">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Nos horaires
+            </h6><hr>
+            <p>
+              <a href="#!" class="text-reset">Lundi | 8h00 - 17h30</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Mardi | 8h00 - 17h30</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Mercredi | 8h00 - 17h30</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Jeudi | 8h00 - 17h30</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Vendredi | 8h00 - 17h30</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Samedi | 8h00 - 17h30</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Dimanche | Fermé</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              D'autres endroits à visiter !
+            </h6>
+            <p>
+              <a href="{% url 'actualites'%}" class="text-reset">Actualités</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">Services</a>
+            </p>
+            <p>
+              <a href="{% url 'contact'%}" class="text-reset">Contact</a>
+            </p>
+            <p>
+              <a href="#!" class="text-reset">A propos de nous</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mt-3">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p><i class="fas fa-home me-3"></i> Abidjan, Côte d'Ivoire 225 Cité Diaspora</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              info@allocoiffeur.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 225 07 08 09 78 65</p>
+            <p><i class="fas fa-print me-3"></i> + 225 01 02 12 32 45</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+  
+    <!-- Copyright -->
+    {% if  hommes %}
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2023 Copyright:
+      <a class="text-reset fw-bold" href="{% url 'contact'%}">Allô Coiffeur</a>
+    </div>
+    {% else %}
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2023 Copyright:
+      <a class="text-reset fw-bold" href="{% url 'contact'%}">Allô Make up</a>
+    </div>
+    {% endif %}
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="{% static 'slider\js\bootstrap.bundle.min.js'%}"></script>
+<script src="{% static 'js\mdb.js'%}"></script>
+<script src="{% static '/coiffeurapp/js/script.js'%}"></script>
+<script src="{% static '/404.js'%}"></script>
+
+
+
+    
+</body>
+    
+</html>
+{% endblock content %}

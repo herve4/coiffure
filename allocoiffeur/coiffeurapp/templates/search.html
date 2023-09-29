@@ -1,0 +1,44 @@
+{% load static %}
+{% include 'nav/header.html' %}
+<style>
+  .t:hover{
+    color: #333;
+    border : 1px solid #333;
+    justify-content:center;
+    align-items:center;
+  }
+
+</style>
+{% block  content %}
+  <div class="container-fluid">
+    <div class="row mb-5">
+        {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{message.tags}} alert-dismissible fade show" {% endif %}><h3>{{message}} </h3></div>
+        {% endfor %}
+        <div class="row ">
+          <div class="col-md-6">
+          {% for r in afftouteListe  %}
+
+          <a href="{%url 'show' r.slugs %}" style="text-decoration:none">
+          <div class="card" style="width: 18rem;">
+            <img src="{{r.img_coi.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text">{{r.nom_coi}}</p>
+            </div>
+            <div class="card-footer">
+              <p class="card-text btn btn-secondary t ml-3">{{r.prix_coi}}</p>
+            </div>
+          </div>
+        </a></br>
+        {% endfor %}
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock  %}
+
+
+{% include 'nav/footer.html' %}

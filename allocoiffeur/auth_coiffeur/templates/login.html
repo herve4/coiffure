@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" type="text/css" href="{% static '/login/style.css'%}">
+         
+    <title>Connexion</title> 
+</head>
+<body>
+    
+    <div class="container">
+        <div class="forms">
+            <div class="form login">
+                <span class="title">Connexion</span>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p {% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}} </p>
+                {% endfor %}
+                    {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-field">
+                        <input type="text" placeholder="Entrer votre nom"  required name="username">
+                        <i class="uil uil-user icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="password" placeholder="Entrer votre mot de passe"  required name="pwd">
+                        <i class="uil uil-lock icon"></i>
+                        <i class="uil uil-eye-slash showHidePw"></i>
+                    </div>
+
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="logCheck">
+                            <label for="logCheck" class="text">Se souvenir de moi</label>
+                        </div>
+                        
+                        <a href="#" class="text">Mot de passe oublié ?</a>
+                    </div>
+
+                    <div class="input-field button">
+                        <input type="submit" value="Se connecter">
+                    </div>
+                </form>
+
+                <div class="login-signup">
+                    <span class="text">Pas encore membre ?
+                        <a href="{%url 'inscription'%}" class="text signup-link">S'inscrire</a>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            
+        </div>
+    </div>
+<script>
+    const container = document.querySelector(".container"),
+      pwShowHide = document.querySelectorAll(".showHidePw"),
+      pwFields = document.querySelectorAll(".password"),
+      signUp = document.querySelector(".signup-link"),
+      login = document.querySelector(".login-link");
+
+    //   js code to show/hide password and change icon
+    pwShowHide.forEach(eyeIcon =>
+    {
+        eyeIcon.addEventListener("click", ()=>
+        {
+            pwFields.forEach(pwField =>
+            {
+                if(pwField.type ==="password")
+                {
+                    pwField.type = "text";
+
+                    pwShowHide.forEach(icon =>{
+                        icon.classList.replace("uil-eye-slash", "uil-eye");
+                    })
+                }
+                else
+                {
+                    pwField.type = "password";
+
+                    pwShowHide.forEach(icon =>{
+                        icon.classList.replace("uil-eye", "uil-eye-slash");
+                    })
+                }
+            }) 
+        })
+    })
+
+
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" type="text/css" href="{%static 'slider/css/bootstrap.min.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/css/style.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/css/mdb.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/coiffeurapp/css/style.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static '/coiffeurapp/css/mur.css'%}">
+<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
+<style>
+  {% if page == "coiffures" and hommes %}
+  body{
+    background:#f0f0f0;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  {% else %}
+  body{
+    background:#000000;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  {% endif %}
+</style>
+</head>
+<body >
+
+      <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <!-- Container wrapper -->
+    <div class="container">
+      <!-- Navbar brand -->
+      {% if page == "coiffures" and hommes %}
+      <a class="navbar-brand me-2" href="{%url 'coiffuresapp'%}">
+        
+        <img
+          src="{% static 'img/ALLO-COIFFEUR.png'%}"
+          width="100px"
+          height="auto"
+          alt="MDB Logo"
+          loading="lazy"
+          style="margin-top: -1px;"
+        />
+      </a>
+      {% else %}
+      <a class="navbar-brand me-2" href="{%url 'coiffuresapp'%}">
+        
+        <img
+          src="{% static 'img/ALLO-MAKE-UP.png'%}"
+          width="100px"
+          height="auto"
+          alt="MDB Logo"
+          loading="lazy"
+          style="margin-top: -1px;"
+        />
+      </a>
+      {% endif %}
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarButtonsExample"
+        aria-controls="navbarButtonsExample"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+  
+      <!-- Collapsible wrapper -->
+      
+      <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <!-- Left links -->
+        {% if page == "coiffures"  and hommes%}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'coiffures'%}">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'actualites'  %}">Actualités</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'contact'%}">Contacts</a>
+          </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'coiffure'%}">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'actualites' %}">Actualités</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'contacts'%}">Contacts</a>
+          </li>
+        </ul>
+        {% endif %}
+        <!-- Left links -->
+  
+        <div class="d-flex align-items-center">
+            <form action="{%url 'search' %}" method="get"  class="d-flex input-group w-auto" >
+              {% csrf_token %}
+                <input
+                  type="search"
+                  class="form-control rounded"
+                  placeholder="Rechercher"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+                  name="search"
+                  
+                />
+                <span class="input-group-text border-0" id="search-addon">
+                  <button type="submit" class="input-group-text border-0" ><i class="fas fa-search "></i></button>
+                  
+                </span>
+              </form>
+              {% if page == "coiffures" and hommes %}
+                {% if user.is_authenticated %}
+                <a href="{%url 'logout'%}">
+                <button type="button" class="btn btn-default px-3 me-2">
+                  Déconnexion
+                </button>
+              </a>
+                {% else %}
+                <a href="{%url 'login' %}">
+                <button type="button" class="btn btn-default px-3 me-2">
+                  Connexion
+                </button>
+              </a>
+              <a href="{%url 'inscription' %}">
+                <button type="button" class="btn btn-default px-3 me-2">
+                  S'inscrire
+                </button>
+              </a>
+                {% endif %}
+              {% else %}
+              {% if user.is_authenticated %}
+              <a href="{%url 'logout'%}">
+              <button type="button" class="btn btn-default px-3 me-2">
+                Déconnexion
+              </button>
+            </a>
+              {% else %}
+              <a href="{%url 'login' %}">
+              <button type="button" class="btn btn-default px-3 me-2">
+                Connexion
+              </button>
+            </a>
+            <a href="{%url 'inscription' %}">
+              <button type="button" class="btn btn-default px-3 me-2">
+                S'inscrire
+              </button>
+            </a>
+              {% endif %}
+              {% endif %}
+              
+              {% if user.is_authenticated %}
+          <a
+            class="btn btn-success px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fas fa-cart-shopping"></i>
+          </a>
+          {% endif %}
+          <a
+            class="btn btn-danger px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fab fa-instagram-square"></i>
+          </a>
+          <a
+            class="btn btn-dark px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fab fa-tiktok"></i>
+          </a>
+          <a
+            class="btn btn-primary px-3 ml-2"
+            href="https://github.com/mdbootstrap/mdb-ui-kit"
+            role="button"
+            ><i class="fab fa-facebook"></i>
+          </a>
+        </div>
+      </div>
+      <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+    
+  </nav>
+  <!-- Navbar -->
+  <div class="container">
+
+ 
+    

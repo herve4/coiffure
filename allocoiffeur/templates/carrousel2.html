@@ -1,0 +1,55 @@
+{% load static %}
+
+
+ <section class="home">
+  <div id="carousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-controls">
+      <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active" style="background-image:url('{% static 'slider/img/slide-4.jpg'%}')"></li>
+        <li data-target="#carousel" data-slide-to="1" style="background-image:url('{% static 'slider/img/slide-6.jpg'%}')"></li>
+        <li data-target="#carousel" data-slide-to="2" style="background-image:url('{% static 'slider/img/slide-5.jpg'%}')"></li>
+        <li data-target="#carousel" data-slide-to="2" style="background-image:url('{% static 'slider/img/slide-3.jpg'%}')"></li>
+        
+      </ol>
+      <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+      <img src="{% static 'slider/img/left-arrow.svg'%}" alt="Prev"> 
+    </a>
+    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+      <img src="{% static 'slider/img/right-arrow.svg'%}" alt="Next">
+    </a>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="background-image:url('{% static 'slider/img/slide-4.jpg'%}')">
+        <div class="container">
+          <h2>NOUS VOUS SURPRENDRONS</h2>
+          <p>AVEC NOTRE APPROCHE</p>
+          <button type="button" class="btn btn-secondary k g "><a href="{%url 'coiffure'%}" class="text-white">Découvrir</a></button>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image:url('{% static 'slider/img/slide-6.jpg'%}')">
+        <div class="container">
+          <h2 class="text-warning">NOUS SAVONS PRENDRE SOIN DE VOTRE IMAGE</h2>
+          <p>avec des stratégies et approches d'expert</p>
+          <button type="button" class="btn btn-secondary k g "><a href="{%url 'coiffure'%}" class="text-white">Découvrir</a></button>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image:url('{% static 'slider/img/slide-5.jpg'%}')">
+        <div class="container">
+          <h2 class="text-info">Nous savons être audacieux</h2>
+          <p>Nous voyons grand pour vous</p>
+          <button type="button" class="btn btn-secondary k g "><a href="{%url 'coiffures'%}" class="text-white">Découvrir</a></button>
+        </div>
+      </div>
+      <div class="carousel-item" style="background-image:url('{% static 'slider/img/slide-3.jpg'%}')">
+        <div class="container">
+          <h2 class="text-info">Nous savons être audacieux</h2>
+          <p>Nous voyons grand pour vous</p>
+          <button type="button" class="btn btn-secondary k g "><a href="{%url 'coiffures'%}" class="text-white">Découvrir</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+ </section>
+
+ 
+

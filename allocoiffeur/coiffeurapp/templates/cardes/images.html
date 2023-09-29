@@ -1,0 +1,46 @@
+{% load static %}
+  
+    <div class="flexy flexy--center">
+        {% if page == "coiffures" %}
+        <div class="flexy__items flexy__items--cyan">
+            <h2 class="content__title content__title--center">
+                
+                <div id="rfx1" class="content__title__inner">
+                    <img src="{% static 'coiffeurapp/ALLÔ-COIFFEUR.png '%}" alt="ALLÔ-COIFFEUR" width="100%" height="auto">
+                </div>
+                <div id="rfx1" class="content__title__inner">Votre coiffeur tout près de vous !
+                </div>
+              
+                
+            </h2>
+         
+        </div>
+        {% else %}
+        <div  class="row">
+            <div  class="col-12">
+              
+                <div  class="img">
+                    <img src="{% static 'img/ALLÔ-MAKEUP.png '%}" alt="ALLÔ-MAKEUP" width="100%">
+                </div>
+                <div  class="text-center mt-3">Votre maquilleuse tout près de vous !
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="flexy__items flexy__items--yellow">
+            <h2 class="content__title content__title--center">
+                <div id="rfx4" class="content__title__inner">Rester attentif et anticiper les évolutions... </div><br />
+                <br>
+            </h2>
+          
+        </div>
+    </div>
+
+  
+
+
+
+ 
+
+
+

@@ -1,0 +1,71 @@
+{% load static %}
+{% include 'nav/header.html' %}
+{% block content %}
+<style>
+  .bg{
+    background : rgba(251, 251, 251, 0.15);
+  }
+.bg:hover{
+    opacity : 0.4;
+    transition:0.2s;
+  }  
+
+
+  .b{
+    opacity: 0.5;
+    background: rgba(251, 251, 251, 0.15);
+  }
+
+
+  </style>
+
+{% include 'cardes/images.html' %}
+
+
+  <div class="row mb-5">
+        <h3 class="text-center mb-4 uppercase">Catégories</h3>
+        {% if page == "coiffure" and femmes %}
+        {% for lis in datalist  %}
+      
+      <div class="col-md-4 ">
+          <a href="{%url 'galeries' lis.nom_cat %}">
+          
+            <div class="card bg-image bg-dark bg text-white  hover-overlay ripple"  data-mdb-ripple-color="light">
+              <img src="{{lis.img_couverture.url}}" class="img-fluid b" alt="{{lis.nom_cat}}"/>
+              <div class="card-img-overlay">
+                  
+                <h5 class="card-title text-white">{{lis.nom_cat}} </h5>
+                
+             
+            </div>
+            </div>
+                
+          </a>
+       </div><br>
+      
+      {% endfor %}
+      {% else %}
+      {% for lis in barbe  %}
+      
+      <div class="col-md-4 ">
+          <a href="{%url 'galeries' lis.nom_cat %}">
+          
+            <div class="card bg-image bg-dark bg text-white  hover-overlay ripple"  data-mdb-ripple-color="light">
+              <img src="{{lis.img_couverture.url}}" class="img-fluid b" alt="{{lis.nom_cat}}"/>
+              <div class="card-img-overlay">
+                  
+                <h5 class="card-title text-white">{{lis.nom_cat}} </h5>
+                
+             
+            </div>
+            </div>
+                
+          </a>
+       </div><br>
+      
+      {% endfor %}
+      {% endif %}
+  </div>
+</div>
+{% endblock content %}
+{% include 'nav/foot.html' %}
